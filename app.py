@@ -116,7 +116,7 @@ with tab_content:
         st.session_state.contents = None
         st.session_state.plan = []
 
-    if st.session_state.contents:
+if st.session_state.contents:
     st.markdown("##### Shorts (Reels/TikTok/LinkedIn)")
     for i, s in enumerate(st.session_state.contents.get("shorts", [])[:200]):
         hashtags_html = " ".join([
@@ -131,16 +131,15 @@ with tab_content:
         )
         card(html)
 
-        st.markdown("##### Carrosséis (IG)")
-        for c in st.session_state.contents.get("carousels", []):
-            bullets = "".join([f"<li>{b}</li>" for b in c.get("bullets", [])])
-            card(f"<b>{c.get('title','')}</b><ul>{bullets}</ul>")
+    st.markdown("##### Carrosséis (IG)")
+    for c in st.session_state.contents.get("carousels", []):
+        bullets = "".join([f"<li>{b}</li>" for b in c.get("bullets", [])])
+        card(f"<b>{c.get('title','')}</b><ul>{bullets}</ul>")
 
-        st.markdown("##### Blogs")
-        for b in st.session_state.contents.get("blogs", []):
-            outline = "".Join([f"<li>{o}</li>" for o in b.get("outline", [])])  # Intentional error to test environment
-            card(f"<b>{b.get('title','')}</b><ul>{outline}</ul>")
-
+    st.markdown("##### Blogs")
+    for b in st.session_state.contents.get("blogs", []):
+        outline = "".join([f"<li>{o}</li>" for o in b.get("outline", [])])
+        card(f"<b>{b.get('title','')}</b><ul>{outline}</ul>")
         st.markdown("---")
         colA, colB, colC = st.columns(3)
         with colA:
