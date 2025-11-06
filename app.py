@@ -117,13 +117,19 @@ with tab_content:
         st.session_state.plan = []
 
     if st.session_state.contents:
-        st.markdown("##### Shorts (Reels/TikTok/LinkedIn)")
-        for i, s in enumerate(st.session_state.contents.get("shorts", [])[:200]):
-            html = f"<b>{i+1}. [{s.get('platform','').upper()}]</b> — {s.get('idea','')}<br>" \
-                   f"<span style='color:#475569'>{s.get('caption','')}</span><br>" \
-                   f"<div style='margin:.2rem 0'>{' '.join([f'<span style=\\'background:#E8F0FF;border-radius:6px;padding:2px 6px;margin:2px;display:inline-block\\'>#{h}</span>' for h in s.get('hashtags', [])])}</div>" \
-                   f"<span style='color:#0F172A'><b>CTA:</b> {s.get('cta','')}</span>"
-            card(html)
+    st.markdown("##### Shorts (Reels/TikTok/LinkedIn)")
+    for i, s in enumerate(st.session_state.contents.get("shorts", [])[:200]):
+        hashtags_html = " ".join([
+            f"<span style='background:#E8F0FF;border-radius:6px;padding:2px 6px;margin:2px;display:inline-block'>#{h}</span>"
+            for h in s.get('hashtags', [])
+        ])
+        html = (
+            f"<b>{i+1}. [{s.get('platform','').upper()}]</b> — {s.get('idea','')}<br>"
+            f"<span style='color:#475569'>{s.get('caption','')}</span><br>"
+            f"<div style='margin:.2rem 0'>{hashtags_html}</div>"
+            f"<span style='color:#0F172A'><b>CTA:</b> {s.get('cta','')}</span>"
+        )
+        card(html)
 
         st.markdown("##### Carrosséis (IG)")
         for c in st.session_state.contents.get("carousels", []):
